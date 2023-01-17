@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { main } from '../../constants'
+import { colors } from '../../styles'
 
 const MainMenuStyled = styled.ul`
   display: flex;
@@ -15,6 +16,10 @@ const MainMenuStyled = styled.ul`
     &:first-child {
       margin-left: 0;
     }
+
+    a {
+      text-decoration: none;
+      color: ${colors.purple}
   }
 `
 
@@ -29,9 +34,7 @@ function MainMenu() {
     <MainMenuStyled>
       {Object.values(main).map(({ path, label }) => (
         <li key={path}>
-          <StyledNavLink style={{ textDecoration: 'none' }} to={path}>
-            {label}
-          </StyledNavLink>
+          <StyledNavLink to={path}>{label}</StyledNavLink>
         </li>
       ))}
     </MainMenuStyled>
