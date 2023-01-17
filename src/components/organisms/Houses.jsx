@@ -10,13 +10,18 @@ const HousesStyled = styled(FlexBox)``
 
 function Houses() {
   const [houses, setHouses] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
   const { data, loading, isError, isSuccess } = useFetch(urls.houses)
 
   useEffect(() => {
     if (!data) return
-    setHouses(data)
+    // pick only first 9 houses
+    setHouses(data.slice(0, 9))
   }, [data])
+
+  // load rest of houses
+  const handleLoadMore = () => {
+    setHouses(data)
+  }
 
   return (
     <HousesStyled>
@@ -36,12 +41,12 @@ function Houses() {
         </Grid>
       )}
       <FlexBox align="center">
-        <Button
-          style={{ marginTop: '2rem' }}
-          onClick={() => setCurrentPage(currentPage + 1)}
-        >
-          Load more
-        </Button>
+        {/* conditionally rendering load more button */}
+        {houses.length < data.length && (
+          <Button style={{ marginTop: '2rem' }} onClick={handleLoadMore}>
+            Load more
+          </Button>
+        )}
       </FlexBox>
     </HousesStyled>
   )
