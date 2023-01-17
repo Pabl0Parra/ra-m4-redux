@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { main } from '../../constants'
 
@@ -17,12 +18,20 @@ const MainMenuStyled = styled.ul`
   }
 `
 
+const StyledNavLink = styled(NavLink)`
+  &.active {
+    font-weight: bold;
+  }
+`
+
 function MainMenu() {
   return (
     <MainMenuStyled>
       {Object.values(main).map(({ path, label }) => (
         <li key={path}>
-          <a href={path}>{label}</a>
+          <StyledNavLink style={{ textDecoration: 'none' }} to={path}>
+            {label}
+          </StyledNavLink>
         </li>
       ))}
     </MainMenuStyled>
