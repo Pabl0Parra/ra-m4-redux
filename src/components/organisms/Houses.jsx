@@ -19,14 +19,14 @@ function Houses() {
   }, [dispatch])
 
   const handleLoadMore = () => {
-    setRenderedHouses(renderedHouses + 9)
+    setRenderedHouses((prevCount) => prevCount + 9)
   }
 
   return (
     <HousesStyled>
       <Grid gridGap="32px">
         {}
-        {allIds.map((id) => (
+        {allIds.slice(0, renderedHouses).map((id) => (
           <HouseCard
             key={byId[id].id}
             title={byId[id].title}
@@ -36,12 +36,13 @@ function Houses() {
           />
         ))}
       </Grid>
-
-      <FlexBox align="center">
-        <Button style={{ marginTop: '2rem' }} onClick={handleLoadMore}>
-          Load more
-        </Button>
-      </FlexBox>
+      {renderedHouses < allIds.length && (
+        <FlexBox align="center">
+          <Button style={{ marginTop: '2rem' }} onClick={handleLoadMore}>
+            Load more
+          </Button>
+        </FlexBox>
+      )}
     </HousesStyled>
   )
 }
