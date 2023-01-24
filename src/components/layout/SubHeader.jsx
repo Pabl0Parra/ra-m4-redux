@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { getHouses, setCity, setType } from '../../store/houses.slice'
+import selectsOptions from '../../helpers/selectsOptions'
 import { colors, Container, dimensions, FlexBox } from '../../styles'
 import { Button, Icon } from '../atoms'
 import { SelectGroup } from '../molecules'
@@ -32,17 +33,6 @@ function SubHeader({ ...props }) {
   const dispatch = useDispatch()
   const [userFilters, setUserFilters] = useState({})
   const houses = useSelector((state) => state.houses.houses)
-
-  const toUpperCase = (string) =>
-    string.charAt(0).toUpperCase() + string.slice(1)
-
-  const selectsOptions = (valuesArray = []) => {
-    const newValue = [...valuesArray]
-    return newValue.sort().map((element) => ({
-      value: element,
-      text: toUpperCase(element),
-    }))
-  }
 
   const handleFilterChange = (event) => {
     setUserFilters((prevFormFilters) => {

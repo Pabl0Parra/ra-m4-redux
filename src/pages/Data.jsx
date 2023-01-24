@@ -16,7 +16,13 @@ function Data() {
   return (
     <Body>
       {allIds.map((id) => (
-        <Text>{byId[id].title}</Text>
+        <div>
+          <Text key={`data${id}`}>{byId[id].title}</Text>
+          <p>{byId[id].type}</p>
+          <p>{byId[id].city}</p>
+          <p>€{byId[id].price}</p>
+          <p>{byId[id].image}</p>
+        </div>
       ))}
     </Body>
   )

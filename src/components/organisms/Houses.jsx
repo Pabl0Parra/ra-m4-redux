@@ -5,6 +5,7 @@ import { Button } from '../atoms'
 import { HouseCard } from '../molecules'
 import { FlexBox, Grid } from '../../styles'
 import { getHouses } from '../../store/houses.slice'
+import filterHouses from '../../helpers/filterHouses'
 
 const HousesStyled = styled(FlexBox)``
 
@@ -14,17 +15,6 @@ function Houses() {
     (state) => state.houses,
   )
   const [currentPage, setCurrentPage] = useState(1)
-
-  const filterByCity = (house, city) => {
-    if (city === null) return true
-    return house.city === city
-  }
-  const filterByType = (house, type) => {
-    if (type === null) return true
-    return house.type === type
-  }
-  const filterHouses = (house, city, type) =>
-    filterByCity(house, city) && filterByType(house, type)
 
   useEffect(() => {
     dispatch(getHouses({ page: currentPage, max: 9 }))
