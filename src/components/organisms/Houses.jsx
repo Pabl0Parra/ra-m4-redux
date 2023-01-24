@@ -12,6 +12,8 @@ function Houses() {
   const dispatch = useDispatch()
   const houses = useSelector((state) => state.houses.houses)
   const { allIds, byId } = houses
+
+  // Este estado fuera
   const [renderedHouses, setRenderedHouses] = useState(9)
 
   useEffect(() => {
@@ -25,7 +27,8 @@ function Houses() {
   return (
     <HousesStyled>
       <Grid gridGap="32px">
-        {}
+        {/* No hagas slice aquí, no es necesario y no tendrias que hacer slice */}
+        {/* Aquí es donde tienes que filtrar */}
         {allIds.slice(0, renderedHouses).map((id) => (
           <HouseCard
             key={byId[id].id}

@@ -36,6 +36,7 @@ function SubHeader({ ...props }) {
             label="Tipo"
             defaultText="Piso, chalet o garaje..."
             hideLabel
+            // Las opciones deberían de venir de redux para así ofrecer lugare de la API
             options={[
               { value: 'piso', text: 'Piso' },
               { value: 'garaje', text: 'Garaje' },
@@ -48,6 +49,7 @@ function SubHeader({ ...props }) {
             label="Ciudad"
             defaultText="Madrid, Barcelona o Zaragoza..."
             hideLabel
+            // Las opciones deberían de venir de redux para así ofrecer lugare de la API
             options={[
               { value: 'barcelona', text: 'Barcelona' },
               { value: 'madrid', text: 'Madrid' },

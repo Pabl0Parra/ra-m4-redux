@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+// Este slice no tiene sentido, eliminalo y lleva el selectedCity y selectedType al slice de houses
 const filterSlice = createSlice({
   name: 'filter',
   initialState: {
