@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import urls from '../constants/urls'
 
+// Aquí en el asyncThunk puedes pasarle parametros para hacer la paginación
+// La paginación o cargar más sirve para no pedir todos los datos de golpe al servidor
 export const getHouses = createAsyncThunk('houses/getHouses', async () => {
   const res = await fetch(urls.houses)
   const data = await res.json()
