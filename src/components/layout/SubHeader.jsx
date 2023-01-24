@@ -1,5 +1,8 @@
-import React from 'react'
+/* eslint-disable no-param-reassign */
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { getHouses, setCity, setType } from '../../store/houses.slice'
 import { colors, Container, dimensions, FlexBox } from '../../styles'
 import { Button, Icon } from '../atoms'
 import { SelectGroup } from '../molecules'
@@ -20,13 +23,43 @@ const FormStyled = styled(FlexBox).attrs({ as: 'form' })`
       margin-right: 1rem;
     }
   }
-
   ${Button} {
     background-color: ${colors.blue};
   }
 `
 
 function SubHeader({ ...props }) {
+  const dispatch = useDispatch()
+  const [userFilters, setUserFilters] = useState({})
+  const houses = useSelector((state) => state.houses.houses)
+
+  const toUpperCase = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1)
+
+  const selectsOptions = (valuesArray = []) => {
+    const newValue = [...valuesArray]
+    return newValue.sort().map((element) => ({
+      value: element,
+      text: toUpperCase(element),
+    }))
+  }
+
+  const handleFilterChange = (event) => {
+    setUserFilters((prevFormFilters) => {
+      prevFormFilters[event.target.id] = event.target.value
+      return prevFormFilters
+    })
+  }
+
+  const handleSearch = () => {
+    dispatch(setCity(userFilters.city))
+    dispatch(setType(userFilters.type))
+  }
+
+  useEffect(() => {
+    dispatch(getHouses())
+  }, [dispatch])
+
   return (
     <SubHeaderStyled {...props}>
       <Container>
@@ -36,26 +69,20 @@ function SubHeader({ ...props }) {
             label="Tipo"
             defaultText="Piso, chalet o garaje..."
             hideLabel
-            options={[
-              { value: 'piso', text: 'Piso' },
-              { value: 'garaje', text: 'Garaje' },
-              { value: 'chalets', text: 'Chalets' },
-            ]}
+            onChange={handleFilterChange}
+            options={selectsOptions(houses.types)}
           />
 
           <SelectGroup
-            id="ciudad"
+            id="city"
             label="Ciudad"
             defaultText="Madrid, Barcelona o Zaragoza..."
             hideLabel
-            options={[
-              { value: 'barcelona', text: 'Barcelona' },
-              { value: 'madrid', text: 'Madrid' },
-              { value: 'zaragoza', text: 'Zaragoza' },
-            ]}
+            onChange={handleFilterChange}
+            options={selectsOptions(houses.cities)}
           />
 
-          <Button>
+          <Button onClick={handleSearch}>
             <Icon icon="search" />
           </Button>
         </FormStyled>
